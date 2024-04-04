@@ -5,7 +5,7 @@
  * */
 const Alexa = require('ask-sdk-core');
 const { DynamoDbPersistenceAdapter } = require('ask-sdk-dynamodb-persistence-adapter');
-const DynamoDbPersistenceAdapter = new DynamoDbPersistenceAdapter({
+const dynamoDbPersistenceAdapter = new DynamoDbPersistenceAdapter({
     tableName: 'table1',
     createTable: true
 })
