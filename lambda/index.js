@@ -88,7 +88,7 @@ const SessionEndedRequestHandler = {
 const GetServiceIntentHandler = {
     canHandle(handlerInput) {
          return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest' 
-          && Alexa.getIntentName(handlerInput.requestEnvelope) === 'GetServiceIntent';
+          && Alexa.getIntentName(handlerInput.requestEnvelope) === 'GetData';
     },
     handle(handlerInput) {
         
