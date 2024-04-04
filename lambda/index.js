@@ -84,6 +84,62 @@ const SessionEndedRequestHandler = {
         return handlerInput.responseBuilder.getResponse(); // notice we send an empty response
     }
 };
+
+const GetServiceIntentHandler = {
+    canHandle(handlerInput) {
+         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest' 
+          && Alexa.getIntentName(handlerInput.requestEnvelope) === 'GetServiceIntent';
+    },
+    handle(handlerInput) {
+        
+        var service;
+        var resolvedService;
+        var serviceSlot;
+    
+        const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+        
+        serviceSlot = Alexa.getSlot(handlerInput.requestEnvelope, "service");
+        service = serviceSlot.value;
+
+        //service = helper.getSpokenWords(handlerInput, "service");
+        resolvedService = helper.getResolvedWords(handlerInput, "service");
+
+        var speakOutput = "";
+
+        if (resolvedService) {
+        
+        var selectedService = resolvedService[0].value.name
+        
+        speakOutput = `I heard you say that you want a dog ${selectedService}. `
+        if (selectedService === "walker") {
+         speakOutput += `We offer daily, weekly, or twice-a-week dog walking packages. `;
+         }
+        if (selectedService === "vet") {
+         speakOutput += `We offer vaccinations and checkups. `;
+         }
+        if (selectedService === "trainer") {
+         speakOutput += `We offer beginner, intermediate, and advanced obedience training. `;
+         }
+         speakOutput += "Which service are you interested in?";
+         
+         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+         
+         sessionAttributes.selectedService = selectedService;
+         
+         handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
+        }
+
+         else {
+             speakOutput = `I heard you say ${service}. I don't offer that service. Choose from dog training, dog walking, or veterinary care.`;
+         }
+        
+        return handlerInput.responseBuilder
+            .speak(speakOutput)
+            .reprompt(speakOutput)
+            .getResponse();
+    }
+};
+
 /* *
  * The intent reflector is used for interaction model testing and debugging.
  * It will simply repeat the intent the user said. You can create custom handlers for your intents 
