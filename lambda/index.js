@@ -77,17 +77,34 @@ const FallbackIntentHandler = {
  * session is closed for one of the following reasons: 1) The user says "exit" or "quit". 2) The user does not 
  * respond or says something that does not match an intent defined in your voice model. 3) An error occurs 
  * */
-const SessionEndedRequestHandler = {
-    canHandle(handlerInput) {
-        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'SessionEndedRequest';
-    },
-    handle(handlerInput) {
-        console.log(`~~~~ Session ended: ${JSON.stringify(handlerInput.requestEnvelope)}`);
+//const SessionEndedRequestHandler = {
+    //canHandle(handlerInput) {
+        //return Alexa.getRequestType(handlerInput.requestEnvelope) === 'SessionEndedRequest';
+    //},
+    //handle(handlerInput) {
+        //console.log(`~~~~ Session ended: ${JSON.stringify(handlerInput.requestEnvelope)}`);
         // Any cleanup logic goes here.
-        return handlerInput.responseBuilder.getResponse(); // notice we send an empty response
-    }
-    
-};
+      //  return handlerInput.responseBuilder.getResponse(); // notice we send an empty response
+    //}
+    //
+//};
+
+const SessionEndedRequestHandler = {
+    async handle(handlerInput)
+    {
+    const attributesManager = handlerInput.attributesManager;
+    let attributes = {"counter":10};
+
+    attributesManager.setPersistentAttributes(attributes);
+    await attributesManager.savePersistentAttributes();
+
+    let speechOutput = `Hi there, Hello World! Your saved counter is ${attributes.counter}`;
+
+    return handlerInput.responseBuilder
+        .speak(speechOutput)
+        .getResponse();
+    },
+}
 
 
 const GetServiceIntentHandler = {
@@ -155,31 +172,15 @@ const GetServiceIntentHandler = {
 const IntentReflectorHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest';
-    },
-    async handle(handlerInput)
-    {
-    const attributesManager = handlerInput.attributesManager;
-    let attributes = {"counter":10};
+   handle(handlerInput) {
+        const intentName = Alexa.getIntentName(handlerInput.requestEnvelope);
+        const speakOutput = `You just triggered ${intentName}`;
 
-    attributesManager.setPersistentAttributes(attributes);
-    await attributesManager.savePersistentAttributes();
-
-    let speechOutput = `Hi there, Hello World! Your saved counter is ${attributes.counter}`;
-
-    return handlerInput.responseBuilder
-        .speak(speechOutput)
-        .getResponse();
-},
-
-   // handle(handlerInput) {
-        //const intentName = Alexa.getIntentName(handlerInput.requestEnvelope);
-        //const speakOutput = `You just triggered ${intentName}`;
-
-        //return handlerInput.responseBuilder
-          //  .speak(speakOutput)
-            //.reprompt('add a reprompt if you want to keep the session open for the user to respond')
-            //.getResponse();
-    //}
+        return handlerInput.responseBuilder
+          .speak(speakOutput)
+            .reprompt('add a reprompt if you want to keep the session open for the user to respond')
+            .getResponse();
+    }
 };
 /**
  * Generic error handling to capture any syntax or routing errors. If you receive an error
