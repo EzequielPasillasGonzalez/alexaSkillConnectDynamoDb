@@ -110,9 +110,9 @@ const GetServiceIntentHandler = {
         
         var selectedService = resolvedService[0].value.name
         
-        speakOutput = `I heard you say that you want a dog ${selectedService}. `
-        if (selectedService === "walker") {
-         speakOutput += `We offer daily, weekly, or twice-a-week dog walking packages. `;
+        speakOutput = `I heard you say that you want know ${selectedService}. `
+        if (selectedService === "name") {
+         speakOutput += `We offer all names of ou database`;
          }
         //if (selectedService === "vet") {
         // speakOutput += `We offer vaccinations and checkups. `;
