@@ -85,56 +85,54 @@ const SessionEndedRequestHandler = {
     }
 };
 
-const GetPriceIntentHandler = {
-    
+const GetServiceIntentHandler = {
     canHandle(handlerInput) {
-        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
-        && Alexa.getIntentName(handlerInput.requestEnvelope) === 'GetData';
+         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest' 
+          && Alexa.getIntentName(handlerInput.requestEnvelope) === 'GetData';
     },
-    async handle(handlerInput) {
+    handle(handlerInput) {
         
-        var price;
-        var serviceDetail;
-        var resolvedType;
-        var chosenType;
-        var chosenService;
-        var speakOutput = ""
-        
+        var service;
+        var resolvedService;
+        var serviceSlot;
+    
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
-
-        const selectedService = sessionAttributes.selectedService;
         
-        if (sessionAttributes.selectedService === null) {
-                return handlerInput.responseBuilder
-                .speak("Which service would you like?")
-                .reprompt(speakOutput)
-                .getResponse();
-            }
-            
+        serviceSlot = Alexa.getSlot(handlerInput.requestEnvelope, "service");
+        service = serviceSlot.value;
 
-        serviceDetail = helper.getSpokenWords(handlerInput, "service");
-        resolvedType = helper.getResolvedWords(handlerInput, "service");
-        if (resolvedType){
-            chosenType = resolvedType[0].value.name
+        //service = helper.getSpokenWords(handlerInput, "service");
+        resolvedService = helper.getResolvedWords(handlerInput, "service");
 
-            speakOutput += `I heard you say ${selectedService}, ${chosenType}. `;
+        var speakOutput = "";
 
-            const priceList = require('./data.json');
+        if (resolvedService) {
         
-            chosenService = priceList.services.filter(service => service.serviceDetail === serviceDetail);
-            
-            if (chosenService) {
-            price = chosenService[0].price;
-              }
-            speakOutput += `The price for that service is ${price} dollars.`
+        var selectedService = resolvedService[0].value.name
+        
+        speakOutput = `I heard you say that you want know ${selectedService}. `
+        if (selectedService === "name") {
+         speakOutput += `We offer all names of our database`;
+         }
+        //if (selectedService === "vet") {
+        // speakOutput += `We offer vaccinations and checkups. `;
+        // }
+        //if (selectedService === "trainer") {
+         //speakOutput += `We offer beginner, intermediate, and advanced obedience training. `;
+         //}
+         speakOutput += "Which service are you interested in?";
+         
+         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+         
+         sessionAttributes.selectedService = selectedService;
+         
+         handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
         }
 
-        else {
-                speakOutput = "Sorry, I couldn't find that service type." 
-            
-            }
-
-
+         else {
+             speakOutput = `I heard you say ${service}. I don't offer that service. Choose from dog training, dog walking, or veterinary care.`;
+         }
+        
         return handlerInput.responseBuilder
             .speak(speakOutput)
             .reprompt(speakOutput)
