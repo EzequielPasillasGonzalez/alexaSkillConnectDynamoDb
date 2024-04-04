@@ -201,8 +201,7 @@ exports.handler = Alexa.SkillBuilders.custom()
         SessionEndedRequestHandler,
         GetServiceIntentHandler,
         IntentReflectorHandler)
-    .addErrorHandlers(
-        ErrorHandler)
+    .addErrorHandlers(ErrorHandler)
 //    .withCustomUserAgent('sample/hello-world/v1.2')
     .withPersistenceAdapter(
         new ddbAdapter.DynamoDbPersistenceAdapter({
