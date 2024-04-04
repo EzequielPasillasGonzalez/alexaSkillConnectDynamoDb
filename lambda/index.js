@@ -4,6 +4,11 @@
  * session persistence, api calls, and more.
  * */
 const Alexa = require('ask-sdk-core');
+const { DynamoDbPersistenceAdapter } = require('ask-sdk-dynamodb-persistence-adapter');
+const DynamoDbPersistenceAdapter + new DynamoDbPersistenceAdapter({
+    tableName: 'table1',
+    createTable: true
+})
 const helper = require('./helper');
 
 const LaunchRequestHandler = {
