@@ -13,7 +13,7 @@ const LaunchRequestHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
     },
-    handle(handlerInput) {
+    async handle(handlerInput) {
         const speakOutput = 'Hello! Welcome to Connection Database. We can connect to your database';
 
         return handlerInput.responseBuilder
