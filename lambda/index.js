@@ -117,7 +117,7 @@ const SessionEndedRequestHandler = {
     return handlerInput.responseBuilder
         .speak(speechOutput)
         .getResponse();
-}
+    }
 }
 
 
