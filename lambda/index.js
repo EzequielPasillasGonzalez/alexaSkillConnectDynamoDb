@@ -114,12 +114,12 @@ const GetServiceIntentHandler = {
         if (selectedService === "walker") {
          speakOutput += `We offer daily, weekly, or twice-a-week dog walking packages. `;
          }
-        if (selectedService === "vet") {
-         speakOutput += `We offer vaccinations and checkups. `;
-         }
-        if (selectedService === "trainer") {
-         speakOutput += `We offer beginner, intermediate, and advanced obedience training. `;
-         }
+        //if (selectedService === "vet") {
+        // speakOutput += `We offer vaccinations and checkups. `;
+        // }
+        //if (selectedService === "trainer") {
+         //speakOutput += `We offer beginner, intermediate, and advanced obedience training. `;
+         //}
          speakOutput += "Which service are you interested in?";
          
          const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
