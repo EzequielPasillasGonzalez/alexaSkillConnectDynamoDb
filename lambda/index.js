@@ -88,6 +88,7 @@ const SessionEndedRequestHandler = {
         // Any cleanup logic goes here.
         return handlerInput.responseBuilder.getResponse(); // notice we send an empty response
     }
+    
 };
 
 const GetServiceIntentHandler = {
@@ -145,6 +146,8 @@ const GetServiceIntentHandler = {
     }
 };
 
+
+
 /* *
  * The intent reflector is used for interaction model testing and debugging.
  * It will simply repeat the intent the user said. You can create custom handlers for your intents 
@@ -200,5 +203,12 @@ exports.handler = Alexa.SkillBuilders.custom()
         IntentReflectorHandler)
     .addErrorHandlers(
         ErrorHandler)
-    .withCustomUserAgent('sample/hello-world/v1.2')
+//    .withCustomUserAgent('sample/hello-world/v1.2')
+    .withPersistenceAdapter(
+        new ddbAdapter.DynamoDbPersistenceAdapter({
+            tableName: process.env.DYNAMODB_PERSISTENCE_TABLE_NAME,
+            createTable: false,
+            dynamoDBClient: new AWS.DynamoDB({apiVersion: 'latest', region: process.env.DYNAMODB_PERSISTENCE_REGION})
+        })
+    )
     .lambda();
