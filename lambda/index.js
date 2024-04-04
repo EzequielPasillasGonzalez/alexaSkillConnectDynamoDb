@@ -89,6 +89,21 @@ const SessionEndedRequestHandler = {
     
 };
 
+async handle(handlerInput)
+{
+    const attributesManager = handlerInput.attributesManager;
+    let attributes = {"counter":10};
+
+    attributesManager.setPersistentAttributes(attributes);
+    await attributesManager.savePersistentAttributes();
+
+    let speechOutput = `Hi there, Hello World! Your saved counter is ${attributes.counter}`;
+
+    return handlerInput.responseBuilder
+        .speak(speechOutput)
+        .getResponse();
+}
+
 const GetServiceIntentHandler = {
     canHandle(handlerInput) {
          return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest' 
