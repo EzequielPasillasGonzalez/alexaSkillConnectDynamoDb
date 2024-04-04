@@ -191,6 +191,7 @@ exports.handler = Alexa.SkillBuilders.custom()
         CancelAndStopIntentHandler,
         FallbackIntentHandler,
         SessionEndedRequestHandler,
+        GetServiceIntentHandler,
         IntentReflectorHandler)
     .addErrorHandlers(
         ErrorHandler)
