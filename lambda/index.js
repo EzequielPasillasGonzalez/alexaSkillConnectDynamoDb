@@ -4,6 +4,7 @@
  * session persistence, api calls, and more.
  * */
 const Alexa = require('ask-sdk-core');
+const AWS = require("aws-sdk");
 const ddbAdapter = require('ask-sdk-dynamodb-persistence-adapter');
 
 const helper = require('./helper');
