@@ -112,7 +112,7 @@ const GetServiceIntentHandler = {
         
         speakOutput = `I heard you say that you want know ${selectedService}. `
         if (selectedService === "name") {
-         speakOutput += `We offer all names of ou database`;
+         speakOutput += `We offer all names of our database`;
          }
         //if (selectedService === "vet") {
         // speakOutput += `We offer vaccinations and checkups. `;
