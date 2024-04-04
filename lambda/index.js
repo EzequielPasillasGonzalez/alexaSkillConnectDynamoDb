@@ -157,7 +157,7 @@ const IntentReflectorHandler = {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest';
     },
     async handle(handlerInput)
-{
+    {
     const attributesManager = handlerInput.attributesManager;
     let attributes = {"counter":10};
 
