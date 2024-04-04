@@ -89,20 +89,6 @@ const SessionEndedRequestHandler = {
     
 };
 
-async handle(handlerInput)
-{
-    const attributesManager = handlerInput.attributesManager;
-    let attributes = {"counter":10};
-
-    attributesManager.setPersistentAttributes(attributes);
-    await attributesManager.savePersistentAttributes();
-
-    let speechOutput = `Hi there, Hello World! Your saved counter is ${attributes.counter}`;
-
-    return handlerInput.responseBuilder
-        .speak(speechOutput)
-        .getResponse();
-}
 
 const GetServiceIntentHandler = {
     canHandle(handlerInput) {
@@ -170,15 +156,29 @@ const IntentReflectorHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest';
     },
-    handle(handlerInput) {
-        const intentName = Alexa.getIntentName(handlerInput.requestEnvelope);
-        const speakOutput = `You just triggered ${intentName}`;
+    async handle(handlerInput)
+{
+    const attributesManager = handlerInput.attributesManager;
+    let attributes = {"counter":10};
 
-        return handlerInput.responseBuilder
-            .speak(speakOutput)
+    attributesManager.setPersistentAttributes(attributes);
+    await attributesManager.savePersistentAttributes();
+
+    let speechOutput = `Hi there, Hello World! Your saved counter is ${attributes.counter}`;
+
+    return handlerInput.responseBuilder
+        .speak(speechOutput)
+        .getResponse();
+}
+   // handle(handlerInput) {
+        //const intentName = Alexa.getIntentName(handlerInput.requestEnvelope);
+        //const speakOutput = `You just triggered ${intentName}`;
+
+        //return handlerInput.responseBuilder
+          //  .speak(speakOutput)
             //.reprompt('add a reprompt if you want to keep the session open for the user to respond')
-            .getResponse();
-    }
+            //.getResponse();
+    //}
 };
 /**
  * Generic error handling to capture any syntax or routing errors. If you receive an error
