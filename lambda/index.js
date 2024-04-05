@@ -30,7 +30,7 @@ const LaunchRequestHandler = {
         } catch(e) {
             console.log('Error: ', e);
             
-            const speakOutput = "Sorry, I encountered an error while handling your request.";
+            const speakOutput = `Sorry, I encountered an error while handling your request. ${e}`;
             
             return handlerInput.responseBuilder
                 .speak(speakOutput)
