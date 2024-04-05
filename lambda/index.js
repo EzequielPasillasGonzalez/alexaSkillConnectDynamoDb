@@ -14,9 +14,15 @@ const LaunchRequestHandler = {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
     },
    async handle(handlerInput) {
-       //const attributesManager = handlerInput.attributesManager;
-       //const attributes = await attributesManager.getPersistentAttributes() || {};
-        //console.log('attributes is: ', attributes);
+       const attributesManager = handlerInput.attributesManager;
+       try{
+           const attributes = await attributesManager.getPersistentAttributes() || {};
+           console.log('attributes is: ', attributes);
+       } catch(e){
+           console.log('Error: ', e);
+       }
+       
+        
 
         //const counter = await attributes.hasOwnProperty('counter') ? attributes.counter : 0;
         
