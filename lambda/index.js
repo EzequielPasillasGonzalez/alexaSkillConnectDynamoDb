@@ -13,35 +13,31 @@ const LaunchRequestHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
     },
-   async handle(handlerInput) {
-       const attributesManager = handlerInput.attributesManager;
-       try{
-           const attributes = await attributesManager.getPersistentAttributes() || {};
-           console.log('attributes is: ', attributes);
-           
-           const counter = await attributes.hasOwnProperty('counter') ? attributes.counter : 0;
-        
-        const speakOutput = `Hello! Welcome to Connection Database. We can connect to your database `;
-
-       return handlerInput.responseBuilder
-         .speak(speakOutput)
-         .reprompt(speakOutput)
-        .getResponse();
+    async handle(handlerInput) {
+        const attributesManager = handlerInput.attributesManager;
+        try {
+            const attributes = await attributesManager.getPersistentAttributes() || {};
+            console.log('attributes is: ', attributes);
+            
+            const counter = await attributes.hasOwnProperty('counter') ? attributes.counter : 0;
+            
+            const speakOutput = `Hello! Welcome to Connection Database. We can connect to your database `;
+            
+            return handlerInput.responseBuilder
+                .speak(speakOutput)
+                .reprompt(speakOutput)
+                .getResponse();
+        } catch(e) {
+            console.log('Error: ', e);
+            
+            const speakOutput = "Sorry, I encountered an error while handling your request.";
+            
+            return handlerInput.responseBuilder
+                .speak(speakOutput)
+                .reprompt(speakOutput)
+                .getResponse();
+        }
     }
-       } catch(e){
-           console.log('Error: ', e);
-           
-             return handlerInput.responseBuilder
-         .speak(speakOutput)
-         .reprompt(speakOutput)
-        .getResponse();
-    }
-       }
-       
-        
-
-        
-     
 };
 
 
