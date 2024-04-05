@@ -14,13 +14,13 @@ const LaunchRequestHandler = {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
     },
    async handle(handlerInput) {
-       const attributesManager = handlerInput.attributesManager;
-       const attributes = await attributesManager.getPersistentAttributes() || {};
-        console.log('attributes is: ', attributes);
+       //const attributesManager = handlerInput.attributesManager;
+       //const attributes = await attributesManager.getPersistentAttributes() || {};
+        //console.log('attributes is: ', attributes);
 
-        const counter = await attributes.hasOwnProperty('counter') ? attributes.counter : 0;
+        //const counter = await attributes.hasOwnProperty('counter') ? attributes.counter : 0;
         
-        const speakOutput = `Hello! Welcome to Connection Database. We can connect to your database  ${counter}`;
+        const speakOutput = `Hello! Welcome to Connection Database. We can connect to your database `;
 
        return handlerInput.responseBuilder
          .speak(speakOutput)
