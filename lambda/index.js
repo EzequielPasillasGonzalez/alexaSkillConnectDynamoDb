@@ -13,14 +13,19 @@ const LaunchRequestHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
     },
-   // async handle(handlerInput) {
-     //   const speakOutput = 'Hello! Welcome to Connection Database. We can connect to your database';
+   async handle(handlerInput) {
+       const attributesManager = handlerInput.attributesManager;
+       const speakOutput = 'Hello! Welcome to Connection Database. We can connect to your database';
+       const attributes = await attributesManager.getPersistentAttributes() || {};
+        console.log('attributes is: ', attributes);
 
-       // return handlerInput.responseBuilder
-         //   .speak(speakOutput)
-           // .reprompt(speakOutput)
-            //.getResponse();
-    //}
+        const counter = attributes.hasOwnProperty('counter') ? attributes.counter : 0;
+
+       return handlerInput.responseBuilder
+         .speak(speakOutput)
+           reprompt(speakOutput)
+        .getResponse();
+    }
      async handle(handlerInput) { // Agregamos la palabra clave async
         const attributesManager = handlerInput.attributesManager;
         const attributes = await attributesManager.getPersistentAttributes() || {};
