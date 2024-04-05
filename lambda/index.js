@@ -32,6 +32,7 @@ const LaunchRequestHandler = {
 
         return handlerInput.responseBuilder
             .speak(speechOutput)
+            .reprompt(speechOutput)
             .getResponse();
     }
 };
