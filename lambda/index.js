@@ -15,11 +15,12 @@ const LaunchRequestHandler = {
     },
    async handle(handlerInput) {
        const attributesManager = handlerInput.attributesManager;
-       const speakOutput = 'Hello! Welcome to Connection Database. We can connect to your database';
        const attributes = await attributesManager.getPersistentAttributes() || {};
         console.log('attributes is: ', attributes);
 
-        const counter = attributes.hasOwnProperty('counter') ? attributes.counter : 0;
+        const counter = await attributes.hasOwnProperty('counter') ? attributes.counter : 0;
+        
+        const speakOutput = `Hello! Welcome to Connection Database. We can connect to your database  ${counter}`;
 
        return handlerInput.responseBuilder
          .speak(speakOutput)
