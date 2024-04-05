@@ -18,13 +18,8 @@ const LaunchRequestHandler = {
        try{
            const attributes = await attributesManager.getPersistentAttributes() || {};
            console.log('attributes is: ', attributes);
-       } catch(e){
-           console.log('Error: ', e);
-       }
-       
-        
-
-        //const counter = await attributes.hasOwnProperty('counter') ? attributes.counter : 0;
+           
+           const counter = await attributes.hasOwnProperty('counter') ? attributes.counter : 0;
         
         const speakOutput = `Hello! Welcome to Connection Database. We can connect to your database `;
 
@@ -33,6 +28,19 @@ const LaunchRequestHandler = {
          .reprompt(speakOutput)
         .getResponse();
     }
+       } catch(e){
+           console.log('Error: ', e);
+           
+             return handlerInput.responseBuilder
+         .speak(speakOutput)
+         .reprompt(speakOutput)
+        .getResponse();
+    }
+       }
+       
+        
+
+        
      
 };
 
