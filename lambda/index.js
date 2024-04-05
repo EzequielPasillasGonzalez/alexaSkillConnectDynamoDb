@@ -238,9 +238,9 @@ exports.handler = Alexa.SkillBuilders.custom()
 //    .withCustomUserAgent('sample/hello-world/v1.2')
     .withPersistenceAdapter(
         new ddbAdapter.DynamoDbPersistenceAdapter({
-            tableName: 'table1',
+            tableName: 'name',
             createTable: false,
-            dynamoDBClient: new AWS.DynamoDB({apiVersion: 'latest', region: 'us-east-2'})
+            dynamoDBClient: new AWS.DynamoDB({apiVersion: 'latest', region: 'us-east-1'})
         })
     )
     .lambda();
