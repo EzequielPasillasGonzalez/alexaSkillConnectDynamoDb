@@ -40,7 +40,7 @@ const LaunchRequestHandler = {
                 //.getResponse();
         //}
         
-        myDb.getItem(userID).then((data) => {
+        myDb.getItem(1).then((data) => {
     if(!data){
         // item no existe
     }
