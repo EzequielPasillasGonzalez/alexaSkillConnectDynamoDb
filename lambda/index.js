@@ -43,10 +43,17 @@ const LaunchRequestHandler = {
         let data;
         try {
            data = await dynamoDb.getItem(id);
-        .catch((err) => {
-           // error accessing dynamodb
-           ...
-        });
+        }catch(err) {
+           console.log('Error: ', e);
+            
+            const speakOutput = `Sorry, I encountered an error while handling your request. ${e}`;
+            
+            return handlerInput.responseBuilder
+            .speak(speakOutput)
+            .reprompt(speakOutput)
+            .getResponse();
+           
+        };
         if(data){
            // data exists
         }
