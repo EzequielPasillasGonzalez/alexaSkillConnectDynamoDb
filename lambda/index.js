@@ -59,7 +59,10 @@ const LaunchRequestHandler = {
             .reprompt(speakOutput)
             .getResponse();
            
-        };
+        }
+    }
+    
+}
        
 
 
