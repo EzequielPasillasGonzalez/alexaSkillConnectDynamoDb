@@ -48,8 +48,15 @@ const LaunchRequestHandler = {
         // item devuelto OK
     }
 })
-.catch((err) => {
-    // error al acceder a dynamodb
+.catch((e) => {
+     console.log('Error: ', e);
+            
+            const speakOutput = `Sorry, I encountered an error while handling your request. ${e}`;
+            
+            return handlerInput.responseBuilder
+                .speak(speakOutput)
+                .reprompt(speakOutput)
+                .getResponse();
 });
     }
     
