@@ -15,31 +15,60 @@ const LaunchRequestHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
     },
+   // async handle(handlerInput) {
+     //   const attributesManager = handlerInput.attributesManager;
+       // try {
+         //   const attributes = await attributesManager.getPersistentAttributes() || {};
+           // console.log('attributes is: ', attributes);
+            
+            //const counter = await attributes.hasOwnProperty('counter') ? attributes.counter : 0;
+            
+            //const speakOutput = `Hello! Welcome to Connection Database. We can connect to your database `;
+            
+            //return handlerInput.responseBuilder
+///                .speak(speakOutput)
+   //             .reprompt(speakOutput)
+     //           .getResponse();
+       // } catch(e) {
+//            console.log('Error: ', e);
+            
+//            const speakOutput = `Sorry, I encountered an error while handling your request. ${e}`;
+            
+  //          return handlerInput.responseBuilder
+    //            .speak(speakOutput)
+      //          .reprompt(speakOutput)
+        //        .getResponse();
+        //}
+    //}
+    
     async handle(handlerInput) {
-        const attributesManager = handlerInput.attributesManager;
-        try {
-            const attributes = await attributesManager.getPersistentAttributes() || {};
-            console.log('attributes is: ', attributes);
-            
-            const counter = await attributes.hasOwnProperty('counter') ? attributes.counter : 0;
-            
-            const speakOutput = `Hello! Welcome to Connection Database. We can connect to your database `;
-            
-            return handlerInput.responseBuilder
-                .speak(speakOutput)
-                .reprompt(speakOutput)
-                .getResponse();
-        } catch(e) {
-            console.log('Error: ', e);
-            
-            const speakOutput = `Sorry, I encountered an error while handling your request. ${e}`;
-            
-            return handlerInput.responseBuilder
-                .speak(speakOutput)
-                .reprompt(speakOutput)
-                .getResponse();
+    const {responseBuilder } = handlerInput;
+    const userID = handlerInput.requestEnvelope.context.System.user.userId; 
+    
+    return myDb.getItem(userID)
+      .then((data) => {
+        var speechText = "";
+        if(!data){
+          speechText = "Aun no sé si tu lavaplatos está limpio o sucio. Dime 'limpio' o 'sucio' y lo recordaré. Dime por ejemplo: el lavaplatos está sucio. También puedes decir 'salir' o 'ayuda'.";
         }
-    }
+        else {
+          let limpioArray = ["relusiente", "brillante", "reluciente", "limpita", "limpito", "limpia"];
+          var opuesto = (limpioArray.includes(data.status)) ? "sucio" : "limpio";
+          speechText = "El lavaplatos está " + data.status + ". Si quieres que guarde '" + opuesto + "', dímelo o dime salir.";
+        }
+        return responseBuilder
+          .speak(speechText)
+          .reprompt(speechText)
+          .getResponse();
+      })
+      .catch((err) => {
+        const speechText = "Error al intentar recordar el estado de tu lavaplatos." + err;
+        return responseBuilder
+          .speak(speechText)
+          .reprompt(speechText)
+          .getResponse();
+      });
+  }
 };
 
 
