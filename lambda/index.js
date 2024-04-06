@@ -49,7 +49,7 @@ const LaunchRequestHandler = {
             .speak(speakOutput)
             .reprompt(speakOutput)
             .getResponse();
-        }catch(err) {
+        }catch(e) {
            console.log('Error: ', e);
             
             const speakOutput = `Sorry, I encountered an error while handling your request. ${e}`;
