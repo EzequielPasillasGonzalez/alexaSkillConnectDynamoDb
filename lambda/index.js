@@ -43,6 +43,12 @@ const LaunchRequestHandler = {
         let data;
         try {
            data = await dynamoDb.getItem(id);
+           const speakOutput = `Hello! Welcome to Connection Database. We can connect to your database ${data}`;
+            
+            return handlerInput.responseBuilder
+            .speak(speakOutput)
+            .reprompt(speakOutput)
+            .getResponse();
         }catch(err) {
            console.log('Error: ', e);
             
@@ -54,12 +60,7 @@ const LaunchRequestHandler = {
             .getResponse();
            
         };
-        if(data){
-           // data exists
-        }
-        ...
-            }
-        };
+       
 
 
 const HelpIntentHandler = {
