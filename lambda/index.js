@@ -265,4 +265,4 @@ exports.handler = Alexa.SkillBuilders.custom()
             dynamoDBClient: new AWS.DynamoDB({apiVersion: '2.637.0', region: 'us-east-1'})
         })
     )
-   
+    .lambda();
