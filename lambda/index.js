@@ -42,7 +42,7 @@ const LaunchRequestHandler = {
         
         let data;
         try {
-           data = await dynamoDb.getItem(id);
+           data = await myDb.getItem(id);
            const speakOutput = `Hello! Welcome to Connection Database. We can connect to your database ${data}`;
             
             return handlerInput.responseBuilder
