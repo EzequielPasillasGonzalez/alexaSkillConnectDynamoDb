@@ -40,26 +40,17 @@ const LaunchRequestHandler = {
                 //.getResponse();
         //}
         
-        let data;
-        try {
-           data = await myDb.getItem();
-           const speakOutput = `Hello! Welcome to Connection Database. We can connect to your database ${data}`;
-            
-            return handlerInput.responseBuilder
-            .speak(speakOutput)
-            .reprompt(speakOutput)
-            .getResponse();
-        }catch(e) {
-           console.log('Error: ', e);
-            
-            const speakOutput = `Sorry, I encountered an error while handling your request. ${e}`;
-            
-            return handlerInput.responseBuilder
-            .speak(speakOutput)
-            .reprompt(speakOutput)
-            .getResponse();
-           
-        }
+        myDb.getItem(userID).then((data) => {
+    if(!data){
+        // item no existe
+    }
+    else {
+        // item devuelto OK
+    }
+})
+.catch((err) => {
+    // error al acceder a dynamodb
+});
     }
     
 }
