@@ -40,7 +40,7 @@ const LaunchRequestHandler = {
                 //.getResponse();
         //}
         
-        myDb.getItem(1).then((data) => {
+        await myDb.getItem(1).then((data) => {
     if(!data){
           console.log('Error: no existe' );
             
