@@ -42,7 +42,14 @@ const LaunchRequestHandler = {
         
         myDb.getItem(1).then((data) => {
     if(!data){
-        // item no existe
+          console.log('Error: no existe' );
+            
+            const speakOutput = `no existe`;
+            
+            return handlerInput.responseBuilder
+                .speak(speakOutput)
+                .reprompt(speakOutput)
+                .getResponse();
     }
     else {
             console.log('attributes is: ', data);
