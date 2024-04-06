@@ -45,7 +45,14 @@ const LaunchRequestHandler = {
         // item no existe
     }
     else {
-        // item devuelto OK
+            console.log('attributes is: ', data);
+        
+            const speakOutput = `Hello! Welcome to Connection Database. We can connect to your database ${data}`;
+            
+            return handlerInput.responseBuilder
+                .speak(speakOutput)
+                .reprompt(speakOutput)
+                .getResponse();
     }
 })
 .catch((e) => {
