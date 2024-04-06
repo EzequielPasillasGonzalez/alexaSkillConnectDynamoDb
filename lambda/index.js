@@ -7,7 +7,7 @@ const Alexa = require('ask-sdk-core');
 const AWS = require("aws-sdk");
 const ddbAdapter = require('ask-sdk-dynamodb-persistence-adapter');
 const dynamola = require('dynamola');
-let myDb = new dynamola("<AQUÍ NOMBRE DE TU TABLA DYNAMODB>", "userId", null);
+let myDb = new dynamola("names", "userId", null);
 
 const helper = require('./helper');
 
