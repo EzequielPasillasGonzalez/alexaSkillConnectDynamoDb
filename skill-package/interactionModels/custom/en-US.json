@@ -1,0 +1,58 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "intents": [
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.FallbackIntent",
+          "samples": []
+        },
+        {
+          "slots": [
+            {
+              "name": "service",
+              "type": "service"
+            }
+          ],
+          "name": "GetData",
+          "samples": [
+            "i want {service}",
+            "{service}"
+          ]
+        }
+      ],
+      "types": [
+        {
+          "values": [
+            {
+              "name": {
+                "synonyms": [
+                  "name"
+                ],
+                "value": "name"
+              },
+              "id": "NAME"
+            }
+          ],
+          "name": "service"
+        }
+      ],
+      "invocationName": "connection database"
+    }
+  }
+}
